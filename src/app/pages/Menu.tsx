@@ -2,14 +2,29 @@ import React, { useState, useRef, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useSearchParams } from "react-router";
+import zinger from "../../assets/zinger.jpg";
+import dealimage from "../../assets/dealimage.png";
 
 const burgerImg = "https://images.unsplash.com/photo-1760533536738-f0965fd52354?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmlzcHklMjBmcmllZCUyMGNoaWNrZW4lMjBidXJnZXJ8ZW58MXx8fHwxNzczNTcxODA3fDA&ixlib=rb-4.1.0&q=80&w=1080";
+const burgerImg1 = "https://images.unsplash.com/photo-1623407136808-31de45561a51?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fENoaWNrZW4lMjBQYXR0eXxlbnwwfHwwfHx8MA%3D%3D";
+const burgerimg2 = "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGJ1cmdlcnxlbnwwfHwwfHx8MA%3D%3D";
+const burgerimg3 = "https://images.unsplash.com/photo-1713330801172-03f8d1c0dde7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGJ1cmdlcnxlbnwwfHwwfHx8MA%3D%3D";
 const pizzaImg = "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYnElMjBjaGlja2VuJTIwcGl6emF8ZW58MXx8fHwxNzczNTE2OTE3fDA&ixlib=rb-4.1.0&q=80&w=1080";
+const pizzaImg2 = "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHBpenphfGVufDB8fDB8fHww";
+const pizzaImg3 = "https://static.tossdown.com/images/e66ff308-de81-445d-a8a2-72e39e2de9b9.webp";
+const pizzaImg4 = "https://images.unsplash.com/photo-1703575571920-b437d765e5c2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZmFqaXRhJTIwcGl6emF8ZW58MHx8MHx8fDA%3D";
+const pizzaImg5 = "https://g-cdn.blinkco.io/ordering-system/55826/dish_image/1732710015.jpg";
+const pizzaImg6 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvFL7rRw6zTbz7JXXf3lM2zR31IqRGhAWkvA&s";
+const pizzaImg7 = "https://static.tossdown.com/images/efe093f6-66b1-4c30-aa27-39e894dd33d4.webp";
 const shawarmaImg = "https://images.unsplash.com/photo-1734468330969-93c69106993f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaGF3YXJtYSUyMHdyYXAlMjBzYW5kd2ljaHxlbnwxfHx8fDE3NzM0OTI4NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080";
+const paratha2 = "https://images.unsplash.com/photo-1620167789273-d66c723fe754?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2Vla2glMjBrYWJhYiUyMHJvbGx8ZW58MHx8MHx8fDA%3D";
+const paratha3 = "https://plus.unsplash.com/premium_photo-1664478294917-c11274b9ce79?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2hhd2FybWF8ZW58MHx8MHx8fDA%3D";
 const broastImg = "https://images.unsplash.com/photo-1708184528306-f75a0a5118ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwYWtpc3RhbmklMjBicm9hc3QlMjBjaGlja2VufGVufDF8fHx8MTc3MzU3MTgwN3ww&ixlib=rb-4.1.0&q=80&w=1080";
 const friesImg = "https://images.unsplash.com/photo-1717294978892-cef673e1d17b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb2xkZW4lMjBmcmVuY2glMjBmcmllc3xlbnwxfHx8fDE3NzM1NzE4MDh8MA&ixlib=rb-4.1.0&q=80&w=1080";
 const pastaImg = "https://images.unsplash.com/photo-1638890763825-e20495f6b819?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlja2VuJTIwcGFzdGElMjBkaXNofGVufDF8fHx8MTc3MzU3MTgwOHww&ixlib=rb-4.1.0&q=80&w=1080";
-const sandwichImg = "https://images.unsplash.com/photo-1763647814142-b1eb054d42f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbHViJTIwc2FuZHdpY2glMjBnb3VybWV0fGVufDF8fHx8MTc3MzQ1ODczNXww&ixlib=rb-4.1.0&q=80&w=1080";
+const sandwichImg = "https://plus.unsplash.com/premium_photo-1669687759566-e07cf4e03e26?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2FuZHdpY2h8ZW58MHx8MHx8fDA%3D";
+const sandwichImg2 = "https://images.unsplash.com/photo-1676300184084-de35d56a9a70?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2x1YiUyMHNhbmR3aWNofGVufDB8fDB8fHww";
+const sandwichimg3= "https://images.unsplash.com/photo-1712746784291-e29d5d2694d4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2x1YiUyMHNhbmR3aWNofGVufDB8fDB8fHww";
 const nuggetsImg = "https://images.unsplash.com/photo-1585325701956-60dd9c8553bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlja2VuJTIwbnVnZ2V0cyUyMGNyaXNweXxlbnwxfHx8fDE3NzM1NzE4MTB8MA&ixlib=rb-4.1.0&q=80&w=1080";
 
 interface PizzaSize { label: "Small" | "Medium" | "Large"; price: number; }
@@ -95,40 +110,40 @@ function ItemCard({ item, category }: { item: MenuItem; category: string }) {
 
 const menuData: Record<string, MenuItem[]> = {
   Popular: [
-    { id: "popular-zinger-burger",    name: "Zinger Burger",    priceDisplay: "Rs. 449",      priceValue: 449,  description: "Crispy fried chicken with special sauce",   image: burgerImg,   badge: "🔥 Popular" },
-    { id: "popular-fajita-pizza",     name: "Fajita Pizza",     priceDisplay: "from Rs. 599", priceValue: 599,  description: "Loaded with fajita chicken and vegetables", image: pizzaImg,    badge: "🔥 Popular", isPizza: true, sizes: [{ label: "Small", price: 499 }, { label: "Medium", price: 599 }, { label: "Large", price: 849 }] },
+    { id: "popular-zinger-burger",    name: "Zinger Burger",    priceDisplay: "Rs. 449",      priceValue: 449,  description: "Crispy fried chicken with special sauce",   image: zinger,   badge: "🔥 Popular" },
+    { id: "popular-fajita-pizza",     name: "Fajita Pizza",     priceDisplay: "from Rs. 599", priceValue: 599,  description: "Loaded with fajita chicken and vegetables", image: pizzaImg4,    badge: "🔥 Popular", isPizza: true, sizes: [{ label: "Small", price: 499 }, { label: "Medium", price: 599 }, { label: "Large", price: 849 }] },
     { id: "popular-zinger-shawarma",  name: "Zinger Shawarma",  priceDisplay: "Rs. 429",      priceValue: 429,  description: "Spicy zinger wrapped in soft bread",        image: shawarmaImg, badge: "🔥 Popular" },
-    { id: "popular-bbq-pizza",        name: "BBQ Pizza",        priceDisplay: "from Rs. 599", priceValue: 599,  description: "BBQ sauce with tender chicken",             image: pizzaImg,    badge: "🔥 Popular", isPizza: true, sizes: [{ label: "Small", price: 499 }, { label: "Medium", price: 599 }, { label: "Large", price: 849 }] },
+    { id: "popular-bbq-pizza",        name: "BBQ Pizza",        priceDisplay: "from Rs. 599", priceValue: 599,  description: "BBQ sauce with tender chicken",             image: pizzaImg2,    badge: "🔥 Popular", isPizza: true, sizes: [{ label: "Small", price: 499 }, { label: "Medium", price: 599 }, { label: "Large", price: 849 }] },
     { id: "popular-quarter-broast",   name: "Quarter Broast",   priceDisplay: "Rs. 849",      priceValue: 849,  description: "Perfectly seasoned crispy broast",          image: broastImg,   badge: "🔥 Popular" },
     { id: "popular-margherita-pizza", name: "Margherita Pizza", priceDisplay: "from Rs. 499", priceValue: 499,  description: "Classic cheese pizza",                      image: pizzaImg,    badge: "🔥 Popular", isPizza: true, sizes: [{ label: "Small", price: 399 }, { label: "Medium", price: 499 }, { label: "Large", price: 749 }] },
   ],
   Deals: [
-    { id: "deal-five-ka-fifteen", name: "Five Ka Fifteen Deal", priceDisplay: "Rs. 2,100", priceValue: 2100, description: "5 Zinger Burgers — Best value in Wah!", image: burgerImg, badge: "💥 Deal" },
+    { id: "deal-five-ka-fifteen", name: "Five Ka Fifteen Deal", priceDisplay: "Rs. 2,100", priceValue: 2100, description: "5 Zinger Burgers — Best value in Wah!", image: dealimage, badge: "💥 Deal" },
   ],
   Sandwiches: [
     { id: "sandwich-grill-shark",   name: "Grill & Shark",  priceDisplay: "Rs. 550", priceValue: 550, description: "Grilled chicken with special sauce",               image: sandwichImg },
-    { id: "sandwich-club",          name: "Club Sandwich",  priceDisplay: "Rs. 600", priceValue: 600, description: "Triple-decker with chicken, egg, and vegetables", image: sandwichImg },
-    { id: "sandwich-tikka-panani",  name: "Tikka Panani",   priceDisplay: "Rs. 500", priceValue: 500, description: "Spicy tikka in panini bread",                     image: sandwichImg },
+    { id: "sandwich-club",          name: "Club Sandwich",  priceDisplay: "Rs. 600", priceValue: 600, description: "Triple-decker with chicken, egg, and vegetables", image: sandwichImg2 },
+    { id: "sandwich-tikka-panani",  name: "Tikka Panani",   priceDisplay: "Rs. 500", priceValue: 500, description: "Spicy tikka in panini bread",                     image: sandwichimg3 },
   ],
   "Paratha Roll": [
     { id: "paratha-zingratha",        name: "Zingratha",          priceDisplay: "Rs. 449", priceValue: 449, description: "Zinger wrapped in fresh paratha",   image: shawarmaImg },
-    { id: "paratha-seekh-kabab-roll", name: "Seekh Kabab Roll",   priceDisplay: "Rs. 439", priceValue: 439, description: "Juicy seekh kabab in paratha",       image: shawarmaImg },
-    { id: "paratha-tikka-roll",       name: "Tikka Roll Paratha", priceDisplay: "Rs. 400", priceValue: 400, description: "Chicken tikka paratha roll",         image: shawarmaImg },
+    { id: "paratha-seekh-kabab-roll", name: "Seekh Kabab Roll",   priceDisplay: "Rs. 439", priceValue: 439, description: "Juicy seekh kabab in paratha",       image: paratha2 },
+    { id: "paratha-tikka-roll",       name: "Tikka Roll Paratha", priceDisplay: "Rs. 400", priceValue: 400, description: "Chicken tikka paratha roll",         image: paratha3 },
   ],
   Pizza: [
     { id: "pizza-margherita",    name: "Margherita",                  priceDisplay: "from Rs. 399",   priceValue: 399,  description: "Classic cheese and tomato",        image: pizzaImg, isPizza: true, sizes: [{ label: "Small", price: 399 },  { label: "Medium", price: 499 },  { label: "Large", price: 749  }] },
-    { id: "pizza-bbq",           name: "BBQ",                         priceDisplay: "from Rs. 499",   priceValue: 499,  description: "BBQ chicken with onions",          image: pizzaImg, isPizza: true, sizes: [{ label: "Small", price: 499 },  { label: "Medium", price: 599 },  { label: "Large", price: 849  }] },
-    { id: "pizza-tikka",         name: "Tikka",                       priceDisplay: "from Rs. 499",   priceValue: 499,  description: "Spicy tikka chicken",              image: pizzaImg, isPizza: true, sizes: [{ label: "Small", price: 499 },  { label: "Medium", price: 599 },  { label: "Large", price: 849  }] },
-    { id: "pizza-fajita",        name: "Fajita",                      priceDisplay: "from Rs. 499",   priceValue: 499,  description: "Fajita chicken with peppers",      image: pizzaImg, isPizza: true, sizes: [{ label: "Small", price: 499 },  { label: "Medium", price: 599 },  { label: "Large", price: 849  }] },
-    { id: "pizza-special-crown", name: "Special Crown Crust",         priceDisplay: "from Rs. 1,350", priceValue: 1350, description: "Premium crown crust pizza",        image: pizzaImg, isPizza: true, badge: "⭐ Special", sizes: [{ label: "Small", price: 1350 }, { label: "Medium", price: 1550 }, { label: "Large", price: 1850 }] },
-    { id: "pizza-bihari-kabab",  name: "Special Bihari Kabab",        priceDisplay: "from Rs. 1,350", priceValue: 1350, description: "Bihari kabab special pizza",       image: pizzaImg, isPizza: true, badge: "⭐ Special", sizes: [{ label: "Small", price: 1350 }, { label: "Medium", price: 1550 }, { label: "Large", price: 1850 }] },
-    { id: "pizza-kabab-crust",   name: "Special Kabab Crust Stuffed", priceDisplay: "from Rs. 1,350", priceValue: 1350, description: "Stuffed crust with kabab filling", image: pizzaImg, isPizza: true, badge: "⭐ Special", sizes: [{ label: "Small", price: 1350 }, { label: "Medium", price: 1550 }, { label: "Large", price: 1850 }] },
+    { id: "pizza-bbq",           name: "BBQ",                         priceDisplay: "from Rs. 499",   priceValue: 499,  description: "BBQ chicken with onions",          image: pizzaImg2, isPizza: true, sizes: [{ label: "Small", price: 499 },  { label: "Medium", price: 599 },  { label: "Large", price: 849  }] },
+    { id: "pizza-tikka",         name: "Tikka",                       priceDisplay: "from Rs. 499",   priceValue: 499,  description: "Spicy tikka chicken",              image: pizzaImg3, isPizza: true, sizes: [{ label: "Small", price: 499 },  { label: "Medium", price: 599 },  { label: "Large", price: 849  }] },
+    { id: "pizza-fajita",        name: "Fajita",                      priceDisplay: "from Rs. 499",   priceValue: 499,  description: "Fajita chicken with peppers",      image: pizzaImg4, isPizza: true, sizes: [{ label: "Small", price: 499 },  { label: "Medium", price: 599 },  { label: "Large", price: 849  }] },
+    { id: "pizza-special-crown", name: "Special Crown Crust",         priceDisplay: "from Rs. 1,350", priceValue: 1350, description: "Premium crown crust pizza",        image: pizzaImg5, isPizza: true, badge: "⭐ Special", sizes: [{ label: "Small", price: 1350 }, { label: "Medium", price: 1550 }, { label: "Large", price: 1850 }] },
+    { id: "pizza-bihari-kabab",  name: "Special Bihari Kabab",        priceDisplay: "from Rs. 1,350", priceValue: 1350, description: "Bihari kabab special pizza",       image: pizzaImg6, isPizza: true, badge: "⭐ Special", sizes: [{ label: "Small", price: 1350 }, { label: "Medium", price: 1550 }, { label: "Large", price: 1850 }] },
+    { id: "pizza-kabab-crust",   name: "Special Kabab Crust Stuffed", priceDisplay: "from Rs. 1,350", priceValue: 1350, description: "Stuffed crust with kabab filling", image: pizzaImg7, isPizza: true, badge: "⭐ Special", sizes: [{ label: "Small", price: 1350 }, { label: "Medium", price: 1550 }, { label: "Large", price: 1850 }] },
   ],
   Burgers: [
-    { id: "burger-chicken-patty", name: "Chicken Patty", priceDisplay: "Rs. 349", priceValue: 349, description: "Classic chicken patty burger",  image: burgerImg },
-    { id: "burger-zinger",        name: "Zinger",        priceDisplay: "Rs. 449", priceValue: 449, description: "Crispy fried zinger chicken",    image: burgerImg },
-    { id: "burger-afghani",       name: "Afghani",       priceDisplay: "Rs. 349", priceValue: 349, description: "Afghani-style grilled burger",   image: burgerImg },
-    { id: "burger-mac-chicken",   name: "Mac Chicken",   priceDisplay: "Rs. 379", priceValue: 379, description: "Double chicken patty delight",  image: burgerImg },
+    { id: "burger-chicken-patty", name: "Chicken Patty", priceDisplay: "Rs. 349", priceValue: 349, description: "Classic chicken patty burger",  image: burgerImg1 },
+    { id: "burger-zinger",        name: "Zinger",        priceDisplay: "Rs. 449", priceValue: 449, description: "Crispy fried zinger chicken",    image: zinger },
+    { id: "burger-afghani",       name: "Afghani",       priceDisplay: "Rs. 349", priceValue: 349, description: "Afghani-style grilled burger",   image: burgerimg2 },
+    { id: "burger-mac-chicken",   name: "Mac Chicken",   priceDisplay: "Rs. 379", priceValue: 379, description: "Double chicken patty delight",  image: burgerimg3 },
   ],
   Broast: [
     { id: "broast-quarter", name: "Quarter Broast", priceDisplay: "Rs. 849",   priceValue: 849,  description: "2 pcs: leg & thigh or breast & wings, bun, fries & garlic dip", image: broastImg },
